@@ -9,20 +9,35 @@ object Main extends IOApp.Simple {
     .filter(_.nonEmpty)
     .map(_.split(" ").toList)
     .map {
-      case List(cmd, count) => cmd -> count.toInt
+      case List("up", count) => Cmd.Aim(-count.toInt)
+      case List("down", count) => Cmd.Aim(+count.toInt)
+      case List("forward", count) => Cmd.Forward(count.toInt)
+    }
+    .fold(State.empty) { (state, cmd) =>
+      cmd match {
+        case Cmd.Aim(x) => state.copy(aim = state.aim + x)
+        case Cmd.Forward(x) => state.copy(horizontal = state.horizontal + x, depth = state.depth + (state.aim * x))
+      }
     }
     .compile
-    .toList
-    .map(_.groupBy(_._1))
-    .map(_.view.mapValues(_.map(_._2)).mapValues(_.sum).toMap)
-    .flatTap(IO.println)
-    .map { values =>
-      val up = values("up")
-      val down = values("down")
-      val forward = values("forward")
-      (down - up) * forward
-    }
-    .flatMap(IO.println)
+    .lastOrError
+    .flatMap(state => IO.println(state.horizontal * state.depth))
+
+
+  sealed trait Cmd
+
+  object Cmd {
+    case class Aim(x: Int) extends Cmd
+
+    case class Forward(x: Int) extends Cmd
+  }
+
+  case class State(horizontal: Int, depth: Int, aim: Int)
+
+  object State {
+    def empty: State = State(horizontal = 0, depth = 0, aim = 0)
+  }
 
 
 }
+
