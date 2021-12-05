@@ -5,7 +5,7 @@ import scala.annotation.tailrec
 
 object Day3_2 {
 
-  def run: IO[String] = fs2.io.file.Files[IO].readAll(Path("/Users/francois-xavierhibon/fxhibon/advent-of-code/src/main/resources/day_3"))
+  def run: IO[String] = fs2.io.file.Files[IO].readAll(Path("./src/main/resources/day_3"))
     .through(fs2.text.utf8.decode)
     .through(fs2.text.lines)
     .filter(_.nonEmpty)
