@@ -3,7 +3,6 @@ import fs2.io.file.Path
 
 object Day3_1 {
 
-
   def run: IO[String] = fs2.io.file.Files[IO].readAll(Path("/Users/francois-xavierhibon/fxhibon/advent-of-code/src/main/resources/day_3"))
     .through(fs2.text.utf8.decode)
     .through(fs2.text.lines)
@@ -12,7 +11,7 @@ object Day3_1 {
     .toList
     .flatMap { lines =>
       IO {
-        val gammaRateBinary = rotateLines(lines).map { column =>
+        val epsilonAndGamma = rotateLines(lines).map { column =>
 
           val List(epsilon, gamma) = column
             .groupBy(_.toString)
@@ -23,7 +22,7 @@ object Day3_1 {
           epsilon -> gamma
         }
 
-        val (epsilonList, gammaList) = gammaRateBinary.unzip
+        val (epsilonList, gammaList) = epsilonAndGamma.unzip
         val epsilon = Integer.parseInt(epsilonList.mkString, 2)
         val gamma = Integer.parseInt(gammaList.mkString, 2)
         s"gamma($gamma) x epsilon($epsilon) == power_consumption(${gamma * epsilon})"
@@ -31,7 +30,7 @@ object Day3_1 {
     }
 
 
-  private def rotateLines(lines: List[String]) = {
+  private def rotateLines(lines: List[String]): List[List[Char]] = {
     (0 until lines.head.length)
       .map { index =>
         lines.map(_.apply(index))
