@@ -2,6 +2,12 @@ import Day3_2.{BitCriteria, FilteringState}
 
 class AdventOfCodeTest extends munit.CatsEffectSuite {
 
+  test("day_3.1_rotateLines") {
+    val obtained = Day3_1.rotateLines(List("001", "101", "111", "000"))
+    val expected = List(List("0", "1", "1", "0"), List("0", "0", "1", "0"), List("1", "1", "1", "0"))
+    assertEquals(obtained, expected)
+  }
+
   test("day_3.1_run") {
     val obtained = Day3_1.run
     val expected = "gamma(190) x epsilon(3905) == power_consumption(741950)"
@@ -23,17 +29,17 @@ class AdventOfCodeTest extends munit.CatsEffectSuite {
       "00010",
       "01010"
     )
-    val obtained1 = Day3_2.filterByBitCriteria(FilteringState.fromList(testData, bitCriteria = BitCriteria.Most()))
-    val obtained2 = Day3_2.filterByBitCriteria(FilteringState.fromList(testData, bitCriteria = BitCriteria.Least()))
+    val obtainedMost = Day3_2.filterByBitCriteria(FilteringState(testData, bitCriteria = BitCriteria.Most()))
+    val obtainedLeast = Day3_2.filterByBitCriteria(FilteringState(testData, bitCriteria = BitCriteria.Least()))
 
-    assertEquals(obtained = obtained1, expected = "10111")
-    assertEquals(obtained = obtained2, expected = "01010")
+    assertEquals(obtained = obtainedMost, expected = "10111")
+    assertEquals(obtained = obtainedLeast, expected = "01010")
   }
 
   test("day_3.2_run") {
     val obtained = Day3_2.run
     val expected = "oxygenRating(282) x co2Rating(3205) == life_support_rating(903810)"
-    assertIO(obtained, expected)
+    assertIO(obtained = obtained, returns = expected)
   }
 
 }

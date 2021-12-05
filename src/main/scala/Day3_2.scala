@@ -13,8 +13,8 @@ object Day3_2 {
     .toList
     .flatMap { lines =>
       IO {
-        val oxygenRating = Integer.parseInt(filterByBitCriteria(FilteringState.fromList(lines, bitCriteria = BitCriteria.Most())), 2)
-        val co2Rating = Integer.parseInt(filterByBitCriteria(FilteringState.fromList(lines, bitCriteria = BitCriteria.Least())), 2)
+        val oxygenRating = Integer.parseInt(filterByBitCriteria(FilteringState(lines, bitCriteria = BitCriteria.Most())), 2)
+        val co2Rating = Integer.parseInt(filterByBitCriteria(FilteringState(lines, bitCriteria = BitCriteria.Least())), 2)
         s"oxygenRating($oxygenRating) x co2Rating($co2Rating) == life_support_rating(${oxygenRating * co2Rating})"
       }
     }
@@ -33,30 +33,21 @@ object Day3_2 {
     }
   }
 
-  case class FilteringState(lines: List[Line], bitCriteria: BitCriteria, currentColumnIndex: Int)
+  case class FilteringState(lines: List[String], bitCriteria: BitCriteria, currentColumnIndex: Int = 0)
 
-  object FilteringState {
-    def fromList(lines: List[String], bitCriteria: BitCriteria): FilteringState = FilteringState(
-      lines = lines.map(Line),
-      currentColumnIndex = 0,
-      bitCriteria = bitCriteria
-    )
-  }
-
-  case class Line(value: String) extends AnyVal
 
   @tailrec
   def filterByBitCriteria(state: FilteringState): String = {
 
     state.lines match {
-      case List(line) => line.value
+      case List(line) => line
       case lines =>
         val count0 = lines
-          .map(_.value(state.currentColumnIndex))
+          .map(_(state.currentColumnIndex))
           .count(_ == '0')
 
         val count1 = lines
-          .map(_.value(state.currentColumnIndex))
+          .map(_(state.currentColumnIndex))
           .count(_ == '1')
 
         val winner = state.bitCriteria match {
@@ -70,7 +61,7 @@ object Day3_2 {
 
 
         val winningLines = state.lines.filter { line =>
-          line.value.charAt(state.currentColumnIndex) == winner
+          line.charAt(state.currentColumnIndex) == winner
         }
 
         filterByBitCriteria {

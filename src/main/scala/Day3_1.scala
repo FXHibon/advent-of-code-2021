@@ -14,7 +14,7 @@ object Day3_1 {
         val epsilonAndGamma = rotateLines(lines).map { column =>
 
           val List(epsilon, gamma) = column
-            .groupBy(_.toString)
+            .groupBy(identity)
             .toList
             .sortBy(_._2.size)
             .map(_._1)
@@ -30,10 +30,10 @@ object Day3_1 {
     }
 
 
-  private def rotateLines(lines: List[String]): List[List[Char]] = {
+  def rotateLines(lines: List[String]): List[List[String]] = {
     (0 until lines.head.length)
       .map { index =>
-        lines.map(_.apply(index))
+        lines.map(_.apply(index)).map(_.toString)
       }.toList
   }
 }
