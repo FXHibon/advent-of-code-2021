@@ -273,4 +273,24 @@ class AdventOfCodeTest extends munit.CatsEffectSuite {
     assertIO(obtained, expected)
   }
 
+  test("day_5.1_printGrid") {
+
+    val grid = List(
+      List(Day5_1.Cell(0), Day5_1.Cell(1), Day5_1.Cell(0)),
+      List(Day5_1.Cell(0), Day5_1.Cell(1), Day5_1.Cell(0)),
+      List(Day5_1.Cell(0), Day5_1.Cell(2), Day5_1.Cell(2))
+    )
+    val obtained = Day5_1.showGrid(grid)
+    val expected = """.1.
+                     |.1.
+                     |.22""".stripMargin
+    assertNoDiff(obtained, expected)
+  }
+
+  test("day_5.1_solve") {
+    val obtained = Day5_1.solve
+    val expected = "score(5774)"
+    assertIO(obtained, expected)
+  }
+
 }
