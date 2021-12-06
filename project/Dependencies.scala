@@ -5,8 +5,9 @@ import scala.collection.immutable
 object Dependencies {
 
   val dependencies = List(
-    "co.fs2" %% "fs2-core" % "3.2.2",
-    "co.fs2" %% "fs2-io"   % "3.2.2"
+    "co.fs2"        %% "fs2-core"    % "3.2.2",
+    "co.fs2"        %% "fs2-io"      % "3.2.2",
+    "org.typelevel" %% "cats-effect" % "3.3.0"
   )
 
   val testDependencies = List(
