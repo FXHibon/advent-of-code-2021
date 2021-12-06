@@ -1,18 +1,14 @@
 import cats.effect.IO
-import fs2.io.file.Path
 
 object Day3_1 {
 
-  def run: IO[String] = fs2.io.file.Files[IO].readAll(Path("./src/main/resources/day_3"))
-    .through(fs2.text.utf8.decode)
-    .through(fs2.text.lines)
-    .filter(_.nonEmpty)
+  val solve: IO[String] = DataSource
+    .dataForDay(dayNumber = 3)
     .compile
     .toList
     .flatMap { lines =>
       IO {
         val epsilonAndGamma = rotateLines(lines).map { column =>
-
           val List(epsilon, gamma) = column
             .groupBy(identity)
             .toList
@@ -23,18 +19,15 @@ object Day3_1 {
         }
 
         val (epsilonList, gammaList) = epsilonAndGamma.unzip
-        val epsilon = Integer.parseInt(epsilonList.mkString, 2)
-        val gamma = Integer.parseInt(gammaList.mkString, 2)
+        val epsilon                  = Integer.parseInt(epsilonList.mkString, 2)
+        val gamma                    = Integer.parseInt(gammaList.mkString, 2)
         s"gamma($gamma) x epsilon($epsilon) == power_consumption(${gamma * epsilon})"
       }
     }
 
-
   def rotateLines(lines: List[String]): List[List[String]] = {
-    (0 until lines.head.length)
-      .map { index =>
-        lines.map(_.apply(index)).map(_.toString)
-      }.toList
+    (0 until lines.head.length).map { index =>
+      lines.map(_.apply(index)).map(_.toString)
+    }.toList
   }
 }
-
