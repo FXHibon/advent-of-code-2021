@@ -95,38 +95,9 @@ object Day5_1 {
         segments.foldLeft(grid) { (curGrid, segment) =>
           segment.orientation match {
             case Orientation.Horizontal =>
-              val toBeUpdated =
-                segment.from.x to segment.to.x by (if (
-                                                     segment.direction == Direction.Positive
-                                                   ) 1
-                                                   else -1)
-
-              curGrid.updated(
-                segment.from.y,
-                curGrid(segment.from.y).zipWithIndex.map {
-                  case (c, indexToUpdate)
-                      if toBeUpdated.contains(indexToUpdate) =>
-                    c.copy(depth = c.depth + 1)
-                  case (c, _) => c
-                }
-              )
+              drawHorizontalSegment(curGrid, segment)
             case Orientation.Vertical =>
-              val toBeUpdated =
-                segment.from.y to segment.to.y by (if (
-                                                     segment.direction == Direction.Positive
-                                                   ) 1
-                                                   else -1)
-
-              curGrid.zipWithIndex.map {
-                case (line, indexToUpdate)
-                    if toBeUpdated.contains(indexToUpdate) =>
-                  val c = line(segment.from.x)
-                  line.updated(
-                    segment.from.x,
-                    c.copy(depth = c.depth + 1)
-                  )
-                case (line, _) => line
-              }
+              drawVerticalSegment(curGrid, segment)
 
           }
         }
@@ -139,4 +110,45 @@ object Day5_1 {
       }
     }
     .map(score => s"score($score)")
+
+  private def drawVerticalSegment(
+      curGrid: List[List[Cell]],
+      segment: Segment
+  ): List[List[Cell]] = {
+    val toBeUpdated =
+      segment.from.y to segment.to.y by (if (
+                                           segment.direction == Direction.Positive
+                                         ) 1
+                                         else -1)
+
+    curGrid.zipWithIndex.map {
+      case (line, indexToUpdate) if toBeUpdated.contains(indexToUpdate) =>
+        val c = line(segment.from.x)
+        line.updated(
+          segment.from.x,
+          c.copy(depth = c.depth + 1)
+        )
+      case (line, _) => line
+    }
+  }
+
+  private def drawHorizontalSegment(
+      curGrid: List[List[Cell]],
+      segment: Segment
+  ): List[List[Cell]] = {
+    val toBeUpdated =
+      segment.from.x to segment.to.x by (if (
+                                           segment.direction == Direction.Positive
+                                         ) 1
+                                         else -1)
+
+    curGrid.updated(
+      segment.from.y,
+      curGrid(segment.from.y).zipWithIndex.map {
+        case (c, indexToUpdate) if toBeUpdated.contains(indexToUpdate) =>
+          c.copy(depth = c.depth + 1)
+        case (c, _) => c
+      }
+    )
+  }
 }
