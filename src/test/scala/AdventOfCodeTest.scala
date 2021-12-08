@@ -293,4 +293,10 @@ class AdventOfCodeTest extends munit.CatsEffectSuite {
     assertIO(obtained, expected)
   }
 
+  test("day_5.2_solve") {
+    val obtained = Day5_2.solve
+    val expected = "score(18423)"
+    assertIO(obtained, expected)
+  }
+
 }
