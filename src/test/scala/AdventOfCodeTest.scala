@@ -2,7 +2,7 @@ import Day3_2.{BitCriteria, FilteringState}
 
 class AdventOfCodeTest extends munit.CatsEffectSuite {
 
-  test("day_3.1_rotateLines") {
+  test("day_3.1_rotateLines".ignore) {
     val obtained = Day3_1.rotateLines(List("001", "101", "111", "000"))
     val expected = List(
       List("0", "1", "1", "0"),
@@ -12,13 +12,13 @@ class AdventOfCodeTest extends munit.CatsEffectSuite {
     assertEquals(obtained, expected)
   }
 
-  test("day_3.1_solve") {
+  test("day_3.1_solve".ignore) {
     val obtained = Day3_1.solve
     val expected = "gamma(190) x epsilon(3905) == power_consumption(741950)"
     assertIO(obtained = obtained, returns = expected)
   }
 
-  test("day_3.2_filterByBitCriteria") {
+  test("day_3.2_filterByBitCriteria".ignore) {
     val testData = List(
       "00100",
       "11110",
@@ -44,14 +44,14 @@ class AdventOfCodeTest extends munit.CatsEffectSuite {
     assertEquals(obtained = obtainedLeast, expected = "01010")
   }
 
-  test("day_3.2_solve") {
+  test("day_3.2_solve".ignore) {
     val obtained = Day3_2.solve
     val expected =
       "oxygenRating(282) x co2Rating(3205) == life_support_rating(903810)"
     assertIO(obtained = obtained, returns = expected)
   }
 
-  test("day_4.1_Grid.isComplete") {
+  test("day_4.1_Grid.isComplete".ignore) {
     val testData = List(
       Day4_1.Grid(
         List(
@@ -178,7 +178,7 @@ class AdventOfCodeTest extends munit.CatsEffectSuite {
 
   }
 
-  test("day_4.1_fillGrid") {
+  test("day_4.1_fillGrid".ignore) {
     val grid = Day4_1.Grid(
       List(
         List(
@@ -261,19 +261,19 @@ class AdventOfCodeTest extends munit.CatsEffectSuite {
     assertEquals(obtained, expected)
   }
 
-  test("day_4.1_solve") {
+  test("day_4.1_solve".ignore) {
     val obtained = Day4_1.solve
     val expected = "score(25023)"
     assertIO(obtained, expected)
   }
 
-  test("day_4.2_solve") {
+  test("day_4.2_solve".ignore) {
     val obtained = Day4_2.solve
     val expected = "score(2634)"
     assertIO(obtained, expected)
   }
 
-  test("day_5.1_printGrid") {
+  test("day_5.1_printGrid".ignore) {
 
     val grid = List(
       List(Day5_1.Cell(0), Day5_1.Cell(1), Day5_1.Cell(0)),
@@ -287,15 +287,51 @@ class AdventOfCodeTest extends munit.CatsEffectSuite {
     assertNoDiff(obtained, expected)
   }
 
-  test("day_5.1_solve") {
+  test("day_5.1_solve".ignore) {
     val obtained = Day5_1.solve
     val expected = "score(5774)"
     assertIO(obtained, expected)
   }
 
-  test("day_5.2_solve") {
+  test("day_5.2_solve".ignore) {
     val obtained = Day5_2.solve
     val expected = "score(18423)"
+    assertIO(obtained, expected)
+  }
+
+  test("day_6.1_solve".ignore) {
+    val obtained = Day6_1.solve
+    val expected = "fishes_size(394994)"
+    assertIO(obtained, expected)
+  }
+
+  test("day_6.2_solve".ignore) {
+    val obtained = Day6_2.solve
+    val expected = "fishes_size(1765974267455)"
+    assertIO(obtained, expected)
+  }
+
+  test("day_7.1_solve".ignore) {
+    val obtained = Day7_1.solve
+    val expected = "fuel(328187)"
+    assertIO(obtained, expected)
+  }
+
+  test("day_7.2_solve".ignore) {
+    val obtained = Day7_2.solve
+    val expected = "fuel(91257582)"
+    assertIO(obtained, expected)
+  }
+
+  test("day_8.1_solve") {
+    val obtained = Day8_1.solve
+    val expected = "size(456)"
+    assertIO(obtained, expected)
+  }
+
+  test("day_8.2_solve") {
+    val obtained = Day8_1.solve
+    val expected = "size(456)"
     assertIO(obtained, expected)
   }
 
