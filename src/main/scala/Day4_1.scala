@@ -37,7 +37,7 @@ object Day4_1 {
         .filter(_.trim.nonEmpty)
         .toList
         .map(_.toInt)
-        .map(Cell.Unmarked)
+        .map(Cell.Unmarked.apply)
     }.toList)
   }
 
