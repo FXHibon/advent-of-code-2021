@@ -329,7 +329,7 @@ class AdventOfCodeTest extends munit.CatsEffectSuite {
     assertIO(obtained, expected)
   }
 
-  test("day_8.2_solveMatrix") {
+  test("day_8.2_solveMatrix".ignore) {
     val obtained = Day8_2.solveMatrix(
       Day8_2.Entry.fromString(
         "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf"
@@ -339,9 +339,15 @@ class AdventOfCodeTest extends munit.CatsEffectSuite {
     assertEquals(obtained, expected)
   }
 
-  test("day_8.2_solve") {
+  test("day_8.2_solve".ignore) {
     val obtained = Day8_2.solve
     val expected = "size(1091609)"
+    assertIO(obtained, expected)
+  }
+
+  test("day_9.1_solve") {
+    val obtained = Day9_1.solve
+    val expected = "sum_lower_points(566)"
     assertIO(obtained, expected)
   }
 
